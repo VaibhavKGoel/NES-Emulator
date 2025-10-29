@@ -4,9 +4,13 @@
 The goal of our project is to build a fully functional NES (Nintendo Entertainment System) emulator using Rust. We will simulate the NES hardware environment so that we can load and play classic NES games directly through our program. We chose this project because it combines low-level systems programming with emulation theory, computer architecture, and graphics programming. These are topics that we were interested in exploring, and Rust's design makes it an ideal language for a project like this one. 
 
 Our goals and objectives include:
+
 ---Building a NES emulator capable of running simple NES games.
+
 ---Implementing the NES CPU instruction set and memory model.
+
 ---Emulate core components including the CPU, PPU (Picture Processing Unit), APU (Audio Processing Unit), and input handling.
+
 ---Render graphics output in real time and support basic user interaction.
 
 ## Technical Overview

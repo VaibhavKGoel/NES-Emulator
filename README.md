@@ -1,4 +1,9 @@
 # NES-Emulator
+Group Name:
+
+Group Member Names and NetID:
+
+Dev Shah---dshah219
 
 ## Project Introduction
 The goal of our project is to build a fully functional NES (Nintendo Entertainment System) emulator using Rust. We will simulate the NES hardware environment so that we can load and play classic NES games directly through our program. We chose this project because it combines low-level systems programming with emulation theory, computer architecture, and graphics programming. These are topics that we were interested in exploring, and Rust's design makes it an ideal language for a project like this one. 

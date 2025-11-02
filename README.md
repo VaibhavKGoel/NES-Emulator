@@ -43,9 +43,9 @@ Our goals and objectives include:
 
 ### 5. Main Emulator Loop – Fetches, decodes, executes instructions, updates timers, and redraws the display each frame.
 
-##Possible Challenges
-###Implementing the instruction set correctly:
+## Possible Challenges
+### Implementing the instruction set correctly
 ---The CHIP-8 instruction set has around 35 opcodes, and minor mistakes in bit masking or decoding logic can cause unexpected behavior. Testing and debugging the CPU will likely be time-consuming.
 
-###Integrating a graphics/UI crate:
+### Integrating a graphics/UI crate
 ---Choosing and learning to use a windowing/graphics crate such as minifb or sdl2 will be a challenge, particularly when synchronizing rendering speed with the emulator’s timing system.

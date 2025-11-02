@@ -1,5 +1,5 @@
 # Chip-8-Emulator
-Group Name: Chips-Ahoy
+Group Name: Chips Ahoy!
 
 Group Member Names and NetID:
 

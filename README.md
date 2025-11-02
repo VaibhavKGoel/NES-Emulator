@@ -5,10 +5,10 @@ Group Member Names and NetID:
 
 Dev Shah---dshah219
 
-Vaibhav Goel---vkgoel2
+Vaibhav Krishan Goel---vkgoel2
 
 ## Project Introduction
-The goal of our project is to build a fully functional Chip-8 (Nintendo Entertainment System) emulator using Rust. CHIP-8 is a simple, interpreted programming language used on early microcomputers from the 1970s, making it an excellent foundation for learning about how emulators work at a low level. We chose this project because it’s a challenging yet approachable way to explore computer architecture concepts, low-level programming, and Rust’s memory safety guarantees, which are all valuable skills that we are interested in developing.
+The goal of our project is to build a fully functional Chip-8 emulator using Rust. CHIP-8 is a simple, interpreted programming language used on early microcomputers from the 1970s, making it an excellent foundation for learning about how emulators work at a low level. We chose this project because it’s a challenging yet approachable way to explore computer architecture concepts, low-level programming, and Rust’s memory safety guarantees, which are all valuable skills that we are interested in developing.
 
 Our goals and objectives include:
 

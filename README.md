@@ -1,71 +1,51 @@
-# NES-Emulator
-Group Name:
+# Chip-8-Emulator
+Group Name: Chips-Ahoy
 
 Group Member Names and NetID:
 
 Dev Shah---dshah219
 
+Vaibhav Goel---vkgoel2
+
 ## Project Introduction
-The goal of our project is to build a fully functional NES (Nintendo Entertainment System) emulator using Rust. We will simulate the NES hardware environment so that we can load and play classic NES games directly through our program. We chose this project because it combines low-level systems programming with emulation theory, computer architecture, and graphics programming. These are topics that we were interested in exploring, and Rust's design makes it an ideal language for a project like this one. 
+The goal of our project is to build a fully functional Chip-8 (Nintendo Entertainment System) emulator using Rust. CHIP-8 is a simple, interpreted programming language used on early microcomputers from the 1970s, making it an excellent foundation for learning about how emulators work at a low level. We chose this project because it’s a challenging yet approachable way to explore computer architecture concepts, low-level programming, and Rust’s memory safety guarantees, which are all valuable skills that we are interested in developing.
 
 Our goals and objectives include:
 
----Building a NES emulator capable of running simple NES games.
+---Understand the inner workings of CPU emulation, memory management, and instruction decoding.
 
----Implementing the NES CPU instruction set and memory model.
+---Build a fully functional CHIP-8 emulator capable of running original CHIP-8 games (e.g., Pong, Space Invaders).
 
----Emulate core components including the CPU, PPU (Picture Processing Unit), APU (Audio Processing Unit), and input handling.
-
----Render graphics output in real time and support basic user interaction.
+---Strengthen our knowledge of systems programming and Rust’s safety and concurrency features.
 
 ## Technical Overview
-### 1. NES Platform Setup
----Define core system structure (CPU, PPU, APU, BUS, Cartridge).
+### 1. CPU/Instruction Decoder---Implement the CHIP-8 instruction set.
+---A program counter, stack, registers (V0–VF), and index register.
 
----Establish communication between these components through shared interfaces.
+---Opcode fetching, decoding, and execution logic.
 
-### 2. CPU Emulation---Finish by Checkpoint 1
-#### 2.1. Getting Started
----Implement CPU registers, stack, and basic instruction cycle loop.
+---Timers (delay and sound timers) that update at 60 Hz.
 
----Add support for basic instruction fetching and decoding.
+### 2. Memory Management – 4KB memory model divided into reserved system space, font data, and program data---Finish by Checkpoint 1
+---Handles loading CHIP-8 ROMs into memory.
 
-#### 2.2. Memory Addressing Modes
----Implement all 13 addressing modes supported by the NES CPU.
+---Stores fonts and sprites used by CHIP-8 programs.
 
-#### 2.3. Full Instruction Set
----Implement remaining instructions (arithmetic, branching, flags, etc.).
+### 3. Display System – A monochrome 64x32 pixel display.---Finish By Checkpoint 2
+---We’ll use a Rust graphics library to draw pixels to the screen.
 
----Ensure accurate cycle timing and correct flag behavior.
+---Includes methods for clearing and updating the screen.
 
-#### 2.4. Running First Game
----Load a simple test ROM and verify correct CPU execution.
+### 4. Input System – Emulates the 16-key hexadecimal keypad.---Finish by Checkpoint 3
+---Maps modern keyboard inputs to CHIP-8 keys.
 
-### 3. BUS Implementation
----Create the NES bus for communication between CPU, PPU, APU, and cartridge.
+---Supports input polling to detect presses and releases.
 
----Implement read/write access and memory mirroring logic.
+### 5. Main Emulator Loop – Fetches, decodes, executes instructions, updates timers, and redraws the display each frame.
 
-### 4. Cartridge Handling---Finish by Checkpoint 2
----Parse iNES file format headers.
+##Possible Challenges
+###Implementing the instruction set correctly:
+---The CHIP-8 instruction set has around 35 opcodes, and minor mistakes in bit masking or decoding logic can cause unexpected behavior. Testing and debugging the CPU will likely be time-consuming.
 
----Load PRG (program) and CHR (character) ROMs into memory.
-
----Implement Mapper 0 (NROM) to test initial games.
-
-### 5. PPU (Picture Processing Unit) Emulation---Finish by Checpoint 3
-#### 5.1. PPU Registers and NMI Interrupt
----Implement control/status registers and NMI triggering.
-
-#### 5.2. Rendering
----Render CHR ROM tiles to a window.
-
----Draw static backgrounds, then progress to dynamic rendering.
-
-### 6. Joypad Input
----Map keyboard input to NES controller buttons.
-
----Connect input data to memory-mapped registers.
-
-### 7. APU (Audio Processing Unit)---Finish by Checkpoint 4
----(Stretch goal) Begin implementing basic tone generation and audio channels.
+###Integrating a graphics/UI crate:
+---Choosing and learning to use a windowing/graphics crate such as minifb or sdl2 will be a challenge, particularly when synchronizing rendering speed with the emulator’s timing system.

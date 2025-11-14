@@ -88,14 +88,67 @@ impl Emu {
     }
 
     pub fn tick(&mut self) {
-        let fetched = self.fetch();
+        let opcode: u16 = self.fetch();
+        self.execute(opcode);
     }
 
-    fn fetch(&mut self) -> u8 {
-        let result: u8 = self.ram[self.program_counter as usize];
-        self.program_counter += 1;
+    fn fetch(&mut self) -> u16 {
+        let higher = (self.ram[self.program_counter as usize] as u16) << 8;
+        let lower = self.ram[(self.program_counter + 1) as usize] as u16;
+        let op: u16 = higher | lower;
+
+        self.program_counter += 2;
         
-        result
+        op
+    }
+
+    fn execute(&mut self, opcode: u16) {
+        let digit_one = opcode & 0x0F;
+        let digit_two = (opcode >> 4) & 0x0F;
+        let digit_three = (opcode >> 8) & 0x0F;
+        let digit_four = (opcode >> 12) & 0x0F;
+        match (digit_one, digit_two, digit_three, digit_four) {
+            (0, 0, 0, 0) => return,
+            (0, 0, 0xE, 0) => self.screen = [false; SCREEN_WIDTH * SCREEN_HEIGHT],
+            (0, 0, 0xE, 0xE) => self.program_counter = self.pop(),
+            (1, _, _, _) => self.program_counter = opcode & 0xFFF,
+            (2, _, _, _) => {
+                self.push(self.program_counter);
+                self.program_counter = opcode & 0xFFF;
+            },
+            (3, _, _, _) => {
+                if (self.v_reg[digit_two as usize]) == (opcode & 0x0FF) as u8 {
+                    self.program_counter += 2;
+                }
+            },
+            (4, _, _, _) => {
+                if (self.v_reg[digit_two as usize]) != (opcode & 0x0FF) as u8 {
+                    self.program_counter += 2;
+                }
+            },
+            (5, _, _, 0) => {
+                if (self.v_reg[digit_two as usize]) == (self.v_reg[digit_three as usize]) {
+                    self.program_counter += 2;
+                }
+            },
+            (6, _, _, _) => self.v_reg[digit_two as usize] = (opcode & 0xFF) as u8,
+            (7, _, _, _) => self.v_reg[digit_two as usize] = self.v_reg[digit_two as usize].wrapping_add((opcode & 0xFF) as u8),
+            (8, _, _, 0) => self.v_reg[digit_two as usize] = self.v_reg[digit_three as usize],
+            (8, _, _, 1) => self.v_reg[digit_two as usize] |= self.v_reg[digit_three as usize],
+            (8, _, _, 2) => self.v_reg[digit_two as usize] &= self.v_reg[digit_three as usize],
+            (8, _, _, 3) => self.v_reg[digit_two as usize] ^= self.v_reg[digit_three as usize],
+            (_, _, _, _) => unimplemented!("Unimplemented opcode: {}", opcode),
+        }
+    }
+
+    fn timer_ticks(&mut self) {
+        if self.delay_timer > 0 { self.delay_timer -= 1; }
+
+        if self.sound_timer == 1 {
+            //beep(); we will implement sound later
+        }
+
+        if self.sound_timer > 0 { self.sound_timer -= 1; }
     }
     
 }
